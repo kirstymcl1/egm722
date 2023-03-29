@@ -11,9 +11,15 @@ import matplotlib.patches as mpatches
 # try to print the results to the screen using the format method demonstrated in the workbook
 
 # load the necessary data here and transform to a UTM projection
+counties = gpd.read_file('data_files/Counties.shp').to_crs(epsg=32629)
+wards = gpd.read_file('data_files/NI_Wards.shp').to_crs(epsg=32629)
 
 # your analysis goes here...
-
+join = gpd.sjoin(counties, wards, how="inner",predicate="intersects", lsuffix="left", rsuffix="right")
+print(join)
+join_total = join['Population'].sum()
+print(join_total)
+print(join.groupby(['CountyName'])['Population'].sum())
 # ---------------------------------------------------------------------------------------------------------------------
 # below here, you may need to modify the script somewhat to create your map.
 # create a crs using ccrs.UTM() that corresponds to our CRS
