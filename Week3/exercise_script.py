@@ -26,7 +26,8 @@ print(join.groupby(['CountyName'])['Population'].sum())
 myCRS = ccrs.UTM(29)
 # create a figure of size 10x10 (representing the page size in inches
 fig, ax = plt.subplots(1, 1, figsize=(10, 10), subplot_kw=dict(projection=myCRS))
-
+myFig = plt.figure(figsize=(10, 10))
+ax = plt.axes(projection=myCRS)
 # add gridlines below
 gridlines = ax.gridlines(draw_labels=True,
                          xlocs=[-8, -7.5, -7, -6.5, -6, -5.5],
@@ -48,6 +49,6 @@ ax.add_feature(county_outlines)
 county_handles = [mpatches.Rectangle((0, 0), 1, 1, facecolor='none', edgecolor='r')]
 
 ax.legend(county_handles, ['County Boundaries'], fontsize=12, loc='upper left', framealpha=1)
-
+myFig
 # save the figure
 fig.savefig('sample_map.png', dpi=300, bbox_inches='tight')
