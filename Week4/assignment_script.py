@@ -115,6 +115,10 @@ fig
 # use a geometric operation, such as a symmetric difference, to create a hole in a rectangle.
 # then, you can add the output of the symmetric difference operation to the map as a semi-transparent feature.
 
+union = counties.unary_union
+overlay = ShapelyFeature(border.symmetric_difference(union), myCRS, facecolor='w', alpha=0.5)
+
+ax.add_feature(overlay)
 # last but not least, add gridlines to the map
 gridlines = ax.gridlines(draw_labels=True, 
                          xlocs=[-8, -7.5, -7, -6.5, -6, -5.5], 
